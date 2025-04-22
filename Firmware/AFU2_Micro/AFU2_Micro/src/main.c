@@ -9,23 +9,12 @@ int main(void) {
 	init_display_mux();
 	timer1_init();
 	
-	// Habilitar interrupciones globales
-	sei();
-	
-	// Mostrar "1234" inicialmente
 	update_display(1, 2, 3, 4);
 	
-	uint8_t counter = 0;
+	sei();
 	
 	while(1) {
-		// Incrementar contador cada segundo
-		_delay_ms(1000);
-		counter++;
-		
-		// Mostrar contador (formato 00-99)
-		update_display(counter/10, counter%10, 0, 0);
-		
-		// Resetear contador después de 99
-		if(counter > 99) counter = 0;
+		// Loop principal vacío
+		// El refresco se maneja por interrupciones
 	}
 }

@@ -8,19 +8,32 @@
 #include "DISPLAY_7SEG_MUX.h"
 #include <avr/interrupt.h>
 
-// Mapa de segmentos (Cátodo común)
+/*
+   Mapa de bits para display de 7 segmentos (CÁTODO COMÚN)
+
+    Segmento:   Bit:    Visual:
+       A         0       ---
+      F B      5   1    |   |
+       G         6       ---
+      E C      4   2    |   |
+       D         3       ---
+
+   Orden de bits: 0b0GFEDCBA
+*/
+
 const uint8_t segment_map[] = {
-	0x3F, // 0
-	0x06, // 1
-	0x5B, // 2
-	0x4F, // 3
-	0x66, // 4
-	0x6D, // 5
-	0x7D, // 6
-	0x07, // 7
-	0x7F, // 8
-	0x6F  // 9
+	0b11000000, // 0 ? A B C D E F
+	0b11111001, // 1 ?   B C        
+	0b10100100, // 2 ? A B   D E G
+	0b10110000, // 3 ? A B C D   G
+	0b10011001, // 4 ?   B C   F G
+	0b10010010, // 5 ? A   C D   F G
+	0b10000010, // 6 ? A   C D E F G
+	0b11111000, // 7 ? A B C         
+	0b10000000, // 8 ? A B C D E F G
+	0b10010000  // 9 ? A B C D   F G
 };
+
 
 volatile uint8_t display_buffer[4] = {0};
 volatile uint8_t current_digit = 0;

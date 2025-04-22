@@ -18,10 +18,10 @@
 #define display_mux_PORTX   PORTC
 
 // Pines de control de dígitos (ajustar según conexión física)
-#define DIG1 PC1
-#define DIG2 PC2
-#define DIG3 PC3
-#define DIG4 PC4
+#define DIG1 PC4
+#define DIG2 PC3
+#define DIG3 PC2
+#define DIG4 PC1
 
 // Prototipos de funciones
 void init_display_mux(void);
