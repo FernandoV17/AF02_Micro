@@ -5,16 +5,27 @@
 #include "DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.h"
 
 int main(void) {
+	// Inicializar display y timer
 	init_display_mux();
 	timer1_init();
-	sei(); // Habilitar interrupciones
+	
+	// Habilitar interrupciones globales
+	sei();
+	
+	// Mostrar "1234" inicialmente
+	update_display(1, 2, 3, 4);
+	
+	uint8_t counter = 0;
 	
 	while(1) {
-		// Ejemplo: Mostrar "12:34"
-		update_display(12, 34);
+		// Incrementar contador cada segundo
 		_delay_ms(1000);
-		// Ejemplo: Mostrar "56:78"
-		update_display(56, 78);
-		_delay_ms(1000);
+		counter++;
+		
+		// Mostrar contador (formato 00-99)
+		update_display(counter/10, counter%10, 0, 0);
+		
+		// Resetear contador después de 99
+		if(counter > 99) counter = 0;
 	}
 }

@@ -24,45 +24,47 @@ const uint8_t segment_map[] = {
 
 volatile uint8_t display_buffer[4] = {0};
 volatile uint8_t current_digit = 0;
-uint8_t dp_position = 0xFF; // Inicialmente sin puntos
 
 void init_display_mux(void) {
 	// Configurar segmentos como salidas (PB0-PB7)
 	display_7SEG_DDRX = 0xFF;
 	
-	// Configurar dígitos del mux como salidas (PC1-PC4) y apagarlos (HIGH)
+	// Configurar dígitos del mux como salidas (PC1-PC4)
 	display_mux_DDRX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
-	display_mux_PORTX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
+	
+	// Apagar todos los dígitos inicialmente (LOW para desactivar mux)
+	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
 }
 
-// Función de refresco por interrupciones 
+void update_display(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4) {
+	display_buffer[0] = d1;
+	display_buffer[1] = d2;
+	display_buffer[2] = d3;
+	display_buffer[3] = d4;
+}
 
-// HAY ERRROR AQUI --REVISAR--
 ISR(TIMER1_COMPA_vect) {
-	// 1. Apagar todos los dígitos
-	display_mux_PORTX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
+	// 1. Apagar todos los dígitos (poner en LOW los pines del mux)
+	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
 	
-	// 2. Activar segmentos para el dígito actual
-	uint8_t segments = segment_map[display_buffer[current_digit]];
-	if (current_digit == 1) segments |= (1 << dp); // Puntos en dígito 2
-	display_7SEG_PORTX = segments;
+	// 2. Preparar segmentos para el dígito actual
+	display_7SEG_PORTX = segment_map[display_buffer[current_digit]];
 	
-	// 3. Encender solo el dígito actual (LOW)
+	// 3. Activar solo el dígito actual (HIGH en el pin del mux correspondiente)
 	switch(current_digit) {
-		case 0: display_mux_PORTX &= ~(1 << DIG1); break;
-		case 1: display_mux_PORTX &= ~(1 << DIG2); break;
-		case 2: display_mux_PORTX &= ~(1 << DIG3); break;
-		case 3: display_mux_PORTX &= ~(1 << DIG4); break;
+		case 0: display_mux_PORTX |= (1 << DIG1); break;
+		case 1: display_mux_PORTX |= (1 << DIG2); break;
+		case 2: display_mux_PORTX |= (1 << DIG3); break;
+		case 3: display_mux_PORTX |= (1 << DIG4); break;
 	}
 	
 	// 4. Rotar al siguiente dígito
 	current_digit = (current_digit + 1) % 4;
 }
 
-// Configurar Timer1 para 200Hz (5ms por ciclo completo)
-void timer1_init() {
+void timer1_init(void) {
 	TCCR1A = 0;
 	TCCR1B = (1 << WGM12) | (1 << CS11); // Modo CTC, prescaler 8
-	OCR1A = 999; // 16MHz/(8 * 1000) = 2000Hz ? 0.5ms por dígito
+	OCR1A = 9999; // 16MHz/(8 * 10000) = 200Hz (5ms ciclo completo)
 	TIMSK1 = (1 << OCIE1A);
 }
