@@ -5,12 +5,41 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
                               src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o (__do_clear_bss)
+                              src/BUTTON/BUTTON.o (__do_clear_bss)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                              src/main.o (__umulhisi3)
 
 Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .text          0x00000000        0x0 src/BUTTON/BUTTON.o
+ .data          0x00000000        0x0 src/BUTTON/BUTTON.o
+ .bss           0x00000000        0x0 src/BUTTON/BUTTON.o
+ .text.buttons_init
+                0x00000000       0x1a src/BUTTON/BUTTON.o
+ .text.buttons_update
+                0x00000000       0x5c src/BUTTON/BUTTON.o
+ .text.button1_pressed
+                0x00000000       0x10 src/BUTTON/BUTTON.o
+ .text.button2_pressed
+                0x00000000       0x12 src/BUTTON/BUTTON.o
+ .text.button3_pressed
+                0x00000000       0x10 src/BUTTON/BUTTON.o
+ .bss.debounced_state
+                0x00000000        0x1 src/BUTTON/BUTTON.o
+ .bss.actual_state
+                0x00000000        0x1 src/BUTTON/BUTTON.o
+ .debug_info    0x00000000      0x199 src/BUTTON/BUTTON.o
+ .debug_abbrev  0x00000000       0xfa src/BUTTON/BUTTON.o
+ .debug_loc     0x00000000       0x48 src/BUTTON/BUTTON.o
+ .debug_aranges
+                0x00000000       0x40 src/BUTTON/BUTTON.o
+ .debug_ranges  0x00000000       0x30 src/BUTTON/BUTTON.o
+ .debug_line    0x00000000      0x1c4 src/BUTTON/BUTTON.o
+ .debug_str     0x00000000      0x242 src/BUTTON/BUTTON.o
+ .comment       0x00000000       0x31 src/BUTTON/BUTTON.o
+ .debug_frame   0x00000000       0x64 src/BUTTON/BUTTON.o
  .text          0x00000000        0x0 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
  .data          0x00000000        0x0 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
  .bss           0x00000000        0x0 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
@@ -65,6 +94,20 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
 
 Memory Configuration
 
@@ -82,6 +125,7 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
+LOAD src/BUTTON/BUTTON.o
 LOAD src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
 LOAD src/main.o
 START GROUP
@@ -192,7 +236,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x274
+.text           0x00000000      0x2e0
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -279,27 +323,30 @@ END GROUP
                 0x000000a6                . = ALIGN (0x2)
  *(.text.*)
  .text.init_display_mux
-                0x000000a6       0x12 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x000000a6       0x14 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
                 0x000000a6                init_display_mux
  .text.update_display
-                0x000000b8        0xe src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
-                0x000000b8                update_display
+                0x000000ba        0xe src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x000000ba                update_display
  .text.timer1_init
-                0x000000c6       0x1e src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
-                0x000000c6                timer1_init
+                0x000000c8       0x1e src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x000000c8                timer1_init
  .text.actualizar_reloj_display
-                0x000000e4       0x60 src/main.o
-                0x000000e4                actualizar_reloj_display
+                0x000000e6       0x60 src/main.o
+                0x000000e6                actualizar_reloj_display
  .text.__vector_11
-                0x00000144      0x11c src/main.o
-                0x00000144                __vector_11
- .text.main     0x00000260       0x10 src/main.o
-                0x00000260                main
-                0x00000270                . = ALIGN (0x2)
+                0x00000146      0x15a src/main.o
+                0x00000146                __vector_11
+ .text.main     0x000002a0       0x1e src/main.o
+                0x000002a0                main
+ .text.libgcc.mul
+                0x000002be       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x000002be                __umulhisi3
+                0x000002dc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000270        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000270                _exit
-                0x00000270                exit
+ .fini9         0x000002dc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000002dc                _exit
+                0x000002dc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -318,48 +365,49 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000270        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000002dc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000274                _etext = .
+                0x000002e0                _etext = .
 
-.data           0x00800100        0xa load address 0x00000274
+.data           0x00800100        0xc load address 0x000002e0
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
+ .data.segundos
+                0x00800100        0x1 src/main.o
+                0x00800100                segundos
+ .data.minutos  0x00800101        0x1 src/main.o
+                0x00800101                minutos
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
  .rodata.segment_map
-                0x00800100        0xa src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
-                0x00800100                segment_map
+                0x00800102        0xa src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x00800102                segment_map
  *(.gnu.linkonce.r*)
-                0x0080010a                . = ALIGN (0x2)
-                0x0080010a                _edata = .
-                0x0080010a                PROVIDE (__data_end, .)
+                0x0080010c                . = ALIGN (0x2)
+                0x0080010c                _edata = .
+                0x0080010c                PROVIDE (__data_end, .)
 
-.bss            0x0080010a        0xa
-                0x0080010a                PROVIDE (__bss_start, .)
+.bss            0x0080010c        0x8
+                0x0080010c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.current_digit
-                0x0080010a        0x1 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
-                0x0080010a                current_digit
+                0x0080010c        0x1 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x0080010c                current_digit
  .bss.display_buffer
-                0x0080010b        0x4 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
-                0x0080010b                display_buffer
- .bss.ms_counter
-                0x0080010f        0x2 src/main.o
-                0x0080010f                ms_counter
- .bss.segundos  0x00800111        0x1 src/main.o
-                0x00800111                segundos
- .bss.minutos   0x00800112        0x1 src/main.o
-                0x00800112                minutos
- .bss.horas     0x00800113        0x1 src/main.o
-                0x00800113                horas
+                0x0080010d        0x4 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
+                0x0080010d                display_buffer
+ .bss.ms_count.1755
+                0x00800111        0x2 src/main.o
+ .bss.alarma_activada
+                0x00800113        0x1 src/main.o
+                0x00800113                alarma_activada
  *(COMMON)
                 0x00800114                PROVIDE (__bss_end, .)
-                0x00000274                __data_load_start = LOADADDR (.data)
-                0x0000027e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000002e0                __data_load_start = LOADADDR (.data)
+                0x000002ec                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800114        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -441,36 +489,36 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x91f
+.debug_info     0x00000000      0x919
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x160 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
- .debug_info    0x00000754      0x1cb src/main.o
+ .debug_info    0x00000754      0x1c5 src/main.o
 
-.debug_abbrev   0x00000000      0x73b
+.debug_abbrev   0x00000000      0x74a
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2       0xab src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
- .debug_abbrev  0x0000064d       0xee src/main.o
+ .debug_abbrev  0x0000064d       0xfd src/main.o
 
-.debug_line     0x00000000      0x3e3
+.debug_line     0x00000000      0x3fb
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x134 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000134      0x11c src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
- .debug_line    0x00000250      0x193 src/main.o
+ .debug_line    0x00000250      0x1ab src/main.o
 
 .debug_frame    0x00000000       0xd0
  *(.debug_frame)
  .debug_frame   0x00000000       0x44 src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
  .debug_frame   0x00000044       0x8c src/main.o
 
-.debug_str      0x00000000      0x42c
+.debug_str      0x00000000      0x434
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x1ca src/DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.o
                                 0x1fe (size before relaxing)
- .debug_str     0x000003d2       0x5a src/main.o
-                                0x22d (size before relaxing)
+ .debug_str     0x000003d2       0x62 src/main.o
+                                0x235 (size before relaxing)
 
 .debug_loc      0x00000000       0xcb
  *(.debug_loc)

@@ -4,50 +4,77 @@
 #include <avr/interrupt.h>
 #include "DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.h"
 
-
-// Variables globales
-volatile uint8_t horas = 0, minutos = 0, segundos = 0;
-volatile uint16_t ms_counter = 0; // Contador de milisegundos
+// Variables globales para el reloj regresivo
+volatile uint8_t minutos = 59, segundos = 59;  // Inicia en 59:59
+volatile uint8_t alarma_activada = 0;          // Bandera para alarma
 
 void actualizar_reloj_display() {
-	update_display(horas / 10, horas % 10, minutos / 10, minutos % 10);
+	update_display(minutos / 10,   // Primer dígito minutos
+	minutos % 10,    // Segundo dígito minutos
+	segundos / 10,  // Primer dígito segundos
+	segundos % 10); // Segundo dígito segundos
 }
 
 ISR(TIMER1_COMPA_vect) {
-	// --- Multiplexado del display (cada 5ms) ---
-	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4)); // Apagar dÃ­gitos
-	display_7SEG_PORTX = segment_map[display_buffer[current_digit]]; // Mostrar dÃ­gito actual
+	// Multiplexado
+	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
+	display_7SEG_PORTX = (segment_map[display_buffer[current_digit]] << 1);
+	
 	switch(current_digit) {
 		case 0: display_mux_PORTX |= (1 << DIG1); break;
 		case 1: display_mux_PORTX |= (1 << DIG2); break;
 		case 2: display_mux_PORTX |= (1 << DIG3); break;
 		case 3: display_mux_PORTX |= (1 << DIG4); break;
 	}
-	current_digit = (current_digit + 1) % 4; // Rotar dÃ­gito
-
-	// --- Contador de segundos (cada 1000ms) ---
-	ms_counter += 5; // Cada interrupciÃ³n suma 5ms
-	if (ms_counter >= 1000) {
-		ms_counter = 0;
-		segundos++;
-		if (segundos >= 60) {
-			segundos = 0;
-			minutos++;
-			if (minutos >= 60) {
-				minutos = 0;
-				horas++;
-				if (horas >= 24) horas = 0;
+	current_digit = (current_digit + 1) % 4;
+	
+	// Contador de tiempo REGRESIVO
+	static uint16_t ms_count = 0;
+	ms_count += 5;
+	
+	if(ms_count >= 1000) {
+		ms_count = 0;
+		
+		if(!alarma_activada) {
+			if(segundos > 0) {
+				segundos--;  // Decrementa segundos
+				} else {
+				if(minutos > 0) {
+					minutos--;    // Decrementa minutos
+					segundos = 59; // Reinicia segundos
+					} else {
+					// Al llegar a 00:00
+					alarma_activada = 1;
+					// Opcional: Aquí puedes activar un buzzer o LED
+				}
 			}
+			actualizar_reloj_display();
 		}
-		actualizar_reloj_display(); // Actualizar display cada segundo
+	}
+	
+	// Parpadeo cuando llega a 00:00
+	if(alarma_activada && (ms_count % 400 < 200)) {
+		display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
 	}
 }
 
 int main(void) {
+	// Inicialización
 	init_display_mux();
 	timer1_init();
-	actualizar_reloj_display(); // Mostrar 00:00 inicial
-	sei(); // Habilitar interrupciones
-
-	while(1) {} // Todo se maneja por interrupciones
+	
+	// Valores iniciales (59:59)
+	minutos = 59;
+	segundos = 59;
+	alarma_activada = 0;
+	actualizar_reloj_display();
+	
+	// Habilitar interrupciones
+	sei();
+	
+	// Bucle principal
+	while(1) {
+		// Todo se maneja por interrupciones
+		// Opcional: Aquí puedes agregar control por botones
+	}
 }
