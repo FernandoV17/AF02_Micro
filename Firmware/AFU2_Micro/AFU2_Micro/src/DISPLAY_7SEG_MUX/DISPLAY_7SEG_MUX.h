@@ -4,16 +4,14 @@
  * Created: 15/04/2025 11:09:32 a. m.
  *  Author: fervi
  */ 
-
-
 #ifndef DISPLAY_7SEG_MUX_H_
 #define DISPLAY_7SEG_MUX_H_
 
 #include <avr/io.h>
 
-// Definiciones de pines
-#define display_7SEG_DDRX   DDRB
-#define display_7SEG_PORTX  PORTB
+// Definiciones de pines - CORREGIDOS
+#define display_7SEG_DDRX   DDRD
+#define display_7SEG_PORTX  PORTD
 #define display_mux_DDRX    DDRC
 #define display_mux_PORTX   PORTC
 

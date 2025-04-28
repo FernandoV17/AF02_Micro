@@ -39,13 +39,13 @@ volatile uint8_t display_buffer[4] = {0};
 volatile uint8_t current_digit = 0;
 
 void init_display_mux(void) {
-	// Configurar segmentos como salidas (PB0-PB7)
-	display_7SEG_DDRX = 0xFF;
+	// Configurar segmentos como salidas (PD1-PD7)
+	display_7SEG_DDRX |= 0b11111110;  // PD1-PD7 como salidas (PD0 no usado)
 	
 	// Configurar dígitos del mux como salidas (PC1-PC4)
 	display_mux_DDRX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
 	
-	// Apagar todos los dígitos inicialmente (LOW para desactivar mux)
+	// Apagar todos los dígitos inicialmente
 	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
 }
 
