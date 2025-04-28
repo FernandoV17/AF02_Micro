@@ -16,9 +16,9 @@ static uint8_t debounced_state = 0;
 
 void buttons_init(void) {
 	// Configurar pines como entrada
-	DDRD &= ~(BUTTON1_MASK | BUTTON2_MASK | BUTTON3_MASK);
+	DDRD &= ~(BUTTON1_MASK | BUTTON2_MASK);
 	// Desactivar resistencias de pull-up
-	PORTD &= ~(BUTTON1_MASK | BUTTON2_MASK | BUTTON3_MASK);
+	PORTD &= ~(BUTTON1_MASK | BUTTON2_MASK);
 	
 	// Leer estado inicial
 	actual_state = BUTTONS_READ;
@@ -47,10 +47,6 @@ void buttons_update(void) {
 	if ((actual_state & BUTTON2_MASK) == (last_state & BUTTON2_MASK)) {
 		debounced_state = (debounced_state & ~BUTTON2_MASK) | (actual_state & BUTTON2_MASK);
 	}
-	
-	if ((actual_state & BUTTON3_MASK) == (last_state & BUTTON3_MASK)) {
-		debounced_state = (debounced_state & ~BUTTON3_MASK) | (actual_state & BUTTON3_MASK);
-	}
 }
 
 uint8_t button1_pressed(void) {
@@ -59,8 +55,4 @@ uint8_t button1_pressed(void) {
 
 uint8_t button2_pressed(void) {
 	return !(debounced_state & BUTTON2_MASK);
-}
-
-uint8_t button3_pressed(void) {
-	return !(debounced_state & BUTTON3_MASK);
 }

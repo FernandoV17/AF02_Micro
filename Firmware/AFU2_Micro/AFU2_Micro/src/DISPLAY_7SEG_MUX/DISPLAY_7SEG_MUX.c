@@ -18,21 +18,23 @@
       E C      4   2    |   |
        D         3       ---
 
-   Orden de bits: 0b0GFEDCBA
+   Orden de bits: 0bGFEDCBA0
 */
 
 const uint8_t segment_map[] = {
-	0b11000000, // 0  A B C D E F
-	0b11111001, // 1    B C         
-	0b10100100, // 2  A B   D E   G
-	0b10110000, // 3  A B C D     G
-	0b10011001, // 4    B C     F G
-	0b10010010, // 5  A   C D   F G
-	0b10000010, // 6  A   C D E F G
-	0b11111000, // 7  A B C         
-	0b10000000, // 8  A B C D E F G
-	0b10010000  // 9  A B C D   F G
+	0b01111110, // 0  A B C D E F
+	0b00001100, // 1    B C
+	0b10110110, // 2  A B   D E   G
+	0b10011110, // 3  A B C D     G
+	0b11001100, // 4    B C     F G
+	0b11011010, // 5  A   C D   F G
+	0b11111010, // 6  A   C D E F G
+	0b00001110, // 7  A B C
+	0b11111110, // 8  A B C D E F G
+	0b11011110  // 9  A B C D   F G
 };
+
+
 
 
 volatile uint8_t display_buffer[4] = {0};
