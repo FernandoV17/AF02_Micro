@@ -12,7 +12,7 @@ static uint8_t last_state = 0;
 static uint8_t actual_state = 0;
 static uint8_t debounced_state = 0;
 
-#define DEBOUNCE_TIME 50
+#define DEBOUNCE_TIME 500
 
 void buttons_init(void) {
 	// Configurar pines como entrada

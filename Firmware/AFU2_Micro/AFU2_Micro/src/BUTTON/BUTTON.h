@@ -19,7 +19,7 @@
 #define BUTTON1_MASK (1 << BUTTON1_PIN)
 #define BUTTON2_MASK (1 << BUTTON2_PIN)
 
-#define BUTTONS_READ (PIND & (BUTTON1_MASK | BUTTON2_MASK))
+#define BUTTONS_READ (PINB & (BUTTON1_MASK | BUTTON2_MASK))
 
 // Prototipos de funciones
 void buttons_init(void);
