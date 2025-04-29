@@ -5,8 +5,10 @@
  *  Author: fervi
  */ 
 
+#define F_CPU 16000000UL
 #include "DISPLAY_7SEG_MUX.h"
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 /*
    Mapa de bits para display de 7 segmentos (CÁTODO COMÚN)
@@ -41,22 +43,21 @@ volatile uint8_t display_buffer[4] = {0};
 volatile uint8_t current_digit = 0;
 
 void init_display_mux(void) {
-	// Configurar segmentos como salidas (PB0-PB7)
 	display_7SEG_DDRX = 0xFF;
-	
-	// Configurar dígitos del mux como salidas (PC1-PC4)
 	display_mux_DDRX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
-	
-	// Apagar todos los dígitos inicialmente (LOW para desactivar mux)
 	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
 }
 
 void update_display(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4) {
+	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
+	display_7SEG_PORTX = 0x00;
+	_delay_ms(2);
 	display_buffer[0] = d1;
 	display_buffer[1] = d2;
 	display_buffer[2] = d3;
 	display_buffer[3] = d4;
 }
+
 
 ISR(TIMER1_COMPA_vect) {
 	// 1. Apagar todos los dígitos (poner en LOW los pines del mux)

@@ -3,31 +3,31 @@ AFU2_Micro.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000a  00800100  0000018e  00000222  2**0
+  0 .data         0000000a  00800100  0000024a  000002de  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000018e  00000000  00000000  00000094  2**1
+  1 .text         0000024a  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000005  0080010a  0080010a  0000022c  2**0
+  2 .bss          00000005  0080010a  0080010a  000002e8  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000022c  2**0
+  3 .comment      00000030  00000000  00000000  000002e8  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000025c  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000318  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000058  00000000  00000000  0000029c  2**0
+  5 .debug_aranges 00000058  00000000  00000000  00000358  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000843  00000000  00000000  000002f4  2**0
+  6 .debug_info   00000b12  00000000  00000000  000003b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000006e4  00000000  00000000  00000b37  2**0
+  7 .debug_abbrev 000007e7  00000000  00000000  00000ec2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000316  00000000  00000000  0000121b  2**0
+  8 .debug_line   000004e7  00000000  00000000  000016a9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000098  00000000  00000000  00001534  2**2
+  9 .debug_frame  00000098  00000000  00000000  00001b90  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003f4  00000000  00000000  000015cc  2**0
+ 10 .debug_str    0000043a  00000000  00000000  00001c28  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000063  00000000  00000000  000019c0  2**0
+ 11 .debug_loc    000001c9  00000000  00000000  00002062  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000038  00000000  00000000  00001a23  2**0
+ 12 .debug_ranges 00000038  00000000  00000000  0000222b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -44,7 +44,7 @@ Disassembly of section .text:
   20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  2c:	0c 94 63 00 	jmp	0xc6	; 0xc6 <__vector_11>
+  2c:	0c 94 6d 00 	jmp	0xda	; 0xda <__vector_11>
   30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
   38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
@@ -72,8 +72,8 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ee e8       	ldi	r30, 0x8E	; 142
-  7c:	f1 e0       	ldi	r31, 0x01	; 1
+  7a:	ea e4       	ldi	r30, 0x4A	; 74
+  7c:	f2 e0       	ldi	r31, 0x02	; 2
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
@@ -94,29 +94,25 @@ Disassembly of section .text:
   94:	af 30       	cpi	r26, 0x0F	; 15
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 b9 00 	call	0x172	; 0x172 <main>
-  9e:	0c 94 c5 00 	jmp	0x18a	; 0x18a <_exit>
+  9a:	0e 94 c3 00 	call	0x186	; 0x186 <main>
+  9e:	0c 94 23 01 	jmp	0x246	; 0x246 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <init_display_mux>:
+
 volatile uint8_t display_buffer[4] = {0};
 volatile uint8_t current_digit = 0;
 
 void init_display_mux(void) {
-	// Configurar segmentos como salidas (PB0-PB7)
 	display_7SEG_DDRX = 0xFF;
   a6:	8f ef       	ldi	r24, 0xFF	; 255
   a8:	8a b9       	out	0x0a, r24	; 10
-	
-	// Configurar dígitos del mux como salidas (PC1-PC4)
 	display_mux_DDRX |= (1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4);
   aa:	87 b1       	in	r24, 0x07	; 7
   ac:	8e 61       	ori	r24, 0x1E	; 30
   ae:	87 b9       	out	0x07, r24	; 7
-	
-	// Apagar todos los dígitos inicialmente (LOW para desactivar mux)
 	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
   b0:	88 b1       	in	r24, 0x08	; 8
   b2:	81 7e       	andi	r24, 0xE1	; 225
@@ -127,149 +123,260 @@ void init_display_mux(void) {
 }
 
 void update_display(uint8_t d1, uint8_t d2, uint8_t d3, uint8_t d4) {
-	display_buffer[0] = d1;
-  b8:	eb e0       	ldi	r30, 0x0B	; 11
-  ba:	f1 e0       	ldi	r31, 0x01	; 1
-  bc:	80 83       	st	Z, r24
-	display_buffer[1] = d2;
-  be:	61 83       	std	Z+1, r22	; 0x01
-	display_buffer[2] = d3;
-  c0:	42 83       	std	Z+2, r20	; 0x02
-	display_buffer[3] = d4;
-  c2:	23 83       	std	Z+3, r18	; 0x03
-  c4:	08 95       	ret
+	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
+  b8:	98 b1       	in	r25, 0x08	; 8
+  ba:	91 7e       	andi	r25, 0xE1	; 225
+  bc:	98 b9       	out	0x08, r25	; 8
+	display_7SEG_PORTX = 0x00;
+  be:	1b b8       	out	0x0b, r1	; 11
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-000000c6 <__vector_11>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+  c0:	ef e3       	ldi	r30, 0x3F	; 63
+  c2:	ff e1       	ldi	r31, 0x1F	; 31
+  c4:	31 97       	sbiw	r30, 0x01	; 1
+  c6:	f1 f7       	brne	.-4      	; 0xc4 <update_display+0xc>
+  c8:	00 c0       	rjmp	.+0      	; 0xca <update_display+0x12>
+  ca:	00 00       	nop
+	_delay_ms(2);
+	display_buffer[0] = d1;
+  cc:	eb e0       	ldi	r30, 0x0B	; 11
+  ce:	f1 e0       	ldi	r31, 0x01	; 1
+  d0:	80 83       	st	Z, r24
+	display_buffer[1] = d2;
+  d2:	61 83       	std	Z+1, r22	; 0x01
+	display_buffer[2] = d3;
+  d4:	42 83       	std	Z+2, r20	; 0x02
+	display_buffer[3] = d4;
+  d6:	23 83       	std	Z+3, r18	; 0x03
+  d8:	08 95       	ret
+
+000000da <__vector_11>:
 }
 
+
 ISR(TIMER1_COMPA_vect) {
-  c6:	1f 92       	push	r1
-  c8:	0f 92       	push	r0
-  ca:	0f b6       	in	r0, 0x3f	; 63
-  cc:	0f 92       	push	r0
-  ce:	11 24       	eor	r1, r1
-  d0:	8f 93       	push	r24
-  d2:	9f 93       	push	r25
-  d4:	ef 93       	push	r30
-  d6:	ff 93       	push	r31
+  da:	1f 92       	push	r1
+  dc:	0f 92       	push	r0
+  de:	0f b6       	in	r0, 0x3f	; 63
+  e0:	0f 92       	push	r0
+  e2:	11 24       	eor	r1, r1
+  e4:	8f 93       	push	r24
+  e6:	9f 93       	push	r25
+  e8:	ef 93       	push	r30
+  ea:	ff 93       	push	r31
 	// 1. Apagar todos los dígitos (poner en LOW los pines del mux)
 	display_mux_PORTX &= ~((1 << DIG1) | (1 << DIG2) | (1 << DIG3) | (1 << DIG4));
-  d8:	88 b1       	in	r24, 0x08	; 8
-  da:	81 7e       	andi	r24, 0xE1	; 225
-  dc:	88 b9       	out	0x08, r24	; 8
+  ec:	88 b1       	in	r24, 0x08	; 8
+  ee:	81 7e       	andi	r24, 0xE1	; 225
+  f0:	88 b9       	out	0x08, r24	; 8
 	
 	// 2. Preparar segmentos para el dígito actual
 	display_7SEG_PORTX = segment_map[display_buffer[current_digit]];
-  de:	e0 91 0a 01 	lds	r30, 0x010A	; 0x80010a <__data_end>
-  e2:	f0 e0       	ldi	r31, 0x00	; 0
-  e4:	e5 5f       	subi	r30, 0xF5	; 245
-  e6:	fe 4f       	sbci	r31, 0xFE	; 254
-  e8:	e0 81       	ld	r30, Z
-  ea:	f0 e0       	ldi	r31, 0x00	; 0
-  ec:	e0 50       	subi	r30, 0x00	; 0
-  ee:	ff 4f       	sbci	r31, 0xFF	; 255
-  f0:	80 81       	ld	r24, Z
-  f2:	8b b9       	out	0x0b, r24	; 11
+  f2:	e0 91 0a 01 	lds	r30, 0x010A	; 0x80010a <__data_end>
+  f6:	f0 e0       	ldi	r31, 0x00	; 0
+  f8:	e5 5f       	subi	r30, 0xF5	; 245
+  fa:	fe 4f       	sbci	r31, 0xFE	; 254
+  fc:	e0 81       	ld	r30, Z
+  fe:	f0 e0       	ldi	r31, 0x00	; 0
+ 100:	e0 50       	subi	r30, 0x00	; 0
+ 102:	ff 4f       	sbci	r31, 0xFF	; 255
+ 104:	80 81       	ld	r24, Z
+ 106:	8b b9       	out	0x0b, r24	; 11
 	
 	// 3. Activar solo el dígito actual (HIGH en el pin del mux correspondiente)
 	switch(current_digit) {
-  f4:	80 91 0a 01 	lds	r24, 0x010A	; 0x80010a <__data_end>
-  f8:	81 30       	cpi	r24, 0x01	; 1
-  fa:	51 f0       	breq	.+20     	; 0x110 <__vector_11+0x4a>
-  fc:	28 f0       	brcs	.+10     	; 0x108 <__vector_11+0x42>
-  fe:	82 30       	cpi	r24, 0x02	; 2
- 100:	59 f0       	breq	.+22     	; 0x118 <__vector_11+0x52>
- 102:	83 30       	cpi	r24, 0x03	; 3
- 104:	69 f0       	breq	.+26     	; 0x120 <__vector_11+0x5a>
- 106:	0f c0       	rjmp	.+30     	; 0x126 <__vector_11+0x60>
+ 108:	80 91 0a 01 	lds	r24, 0x010A	; 0x80010a <__data_end>
+ 10c:	81 30       	cpi	r24, 0x01	; 1
+ 10e:	51 f0       	breq	.+20     	; 0x124 <__vector_11+0x4a>
+ 110:	28 f0       	brcs	.+10     	; 0x11c <__vector_11+0x42>
+ 112:	82 30       	cpi	r24, 0x02	; 2
+ 114:	59 f0       	breq	.+22     	; 0x12c <__vector_11+0x52>
+ 116:	83 30       	cpi	r24, 0x03	; 3
+ 118:	69 f0       	breq	.+26     	; 0x134 <__vector_11+0x5a>
+ 11a:	0f c0       	rjmp	.+30     	; 0x13a <__vector_11+0x60>
 		case 0: display_mux_PORTX |= (1 << DIG1); break;
- 108:	88 b1       	in	r24, 0x08	; 8
- 10a:	82 60       	ori	r24, 0x02	; 2
- 10c:	88 b9       	out	0x08, r24	; 8
- 10e:	0b c0       	rjmp	.+22     	; 0x126 <__vector_11+0x60>
+ 11c:	88 b1       	in	r24, 0x08	; 8
+ 11e:	82 60       	ori	r24, 0x02	; 2
+ 120:	88 b9       	out	0x08, r24	; 8
+ 122:	0b c0       	rjmp	.+22     	; 0x13a <__vector_11+0x60>
 		case 1: display_mux_PORTX |= (1 << DIG2); break;
- 110:	88 b1       	in	r24, 0x08	; 8
- 112:	84 60       	ori	r24, 0x04	; 4
- 114:	88 b9       	out	0x08, r24	; 8
- 116:	07 c0       	rjmp	.+14     	; 0x126 <__vector_11+0x60>
+ 124:	88 b1       	in	r24, 0x08	; 8
+ 126:	84 60       	ori	r24, 0x04	; 4
+ 128:	88 b9       	out	0x08, r24	; 8
+ 12a:	07 c0       	rjmp	.+14     	; 0x13a <__vector_11+0x60>
 		case 2: display_mux_PORTX |= (1 << DIG3); break;
- 118:	88 b1       	in	r24, 0x08	; 8
- 11a:	88 60       	ori	r24, 0x08	; 8
- 11c:	88 b9       	out	0x08, r24	; 8
- 11e:	03 c0       	rjmp	.+6      	; 0x126 <__vector_11+0x60>
+ 12c:	88 b1       	in	r24, 0x08	; 8
+ 12e:	88 60       	ori	r24, 0x08	; 8
+ 130:	88 b9       	out	0x08, r24	; 8
+ 132:	03 c0       	rjmp	.+6      	; 0x13a <__vector_11+0x60>
 		case 3: display_mux_PORTX |= (1 << DIG4); break;
- 120:	88 b1       	in	r24, 0x08	; 8
- 122:	80 61       	ori	r24, 0x10	; 16
- 124:	88 b9       	out	0x08, r24	; 8
+ 134:	88 b1       	in	r24, 0x08	; 8
+ 136:	80 61       	ori	r24, 0x10	; 16
+ 138:	88 b9       	out	0x08, r24	; 8
 	}
 	
 	// 4. Rotar al siguiente dígito
 	current_digit = (current_digit + 1) % 4;
- 126:	80 91 0a 01 	lds	r24, 0x010A	; 0x80010a <__data_end>
- 12a:	90 e0       	ldi	r25, 0x00	; 0
- 12c:	01 96       	adiw	r24, 0x01	; 1
- 12e:	83 70       	andi	r24, 0x03	; 3
- 130:	90 78       	andi	r25, 0x80	; 128
- 132:	99 23       	and	r25, r25
- 134:	24 f4       	brge	.+8      	; 0x13e <__vector_11+0x78>
- 136:	01 97       	sbiw	r24, 0x01	; 1
- 138:	8c 6f       	ori	r24, 0xFC	; 252
- 13a:	9f 6f       	ori	r25, 0xFF	; 255
- 13c:	01 96       	adiw	r24, 0x01	; 1
- 13e:	80 93 0a 01 	sts	0x010A, r24	; 0x80010a <__data_end>
+ 13a:	80 91 0a 01 	lds	r24, 0x010A	; 0x80010a <__data_end>
+ 13e:	90 e0       	ldi	r25, 0x00	; 0
+ 140:	01 96       	adiw	r24, 0x01	; 1
+ 142:	83 70       	andi	r24, 0x03	; 3
+ 144:	90 78       	andi	r25, 0x80	; 128
+ 146:	99 23       	and	r25, r25
+ 148:	24 f4       	brge	.+8      	; 0x152 <__vector_11+0x78>
+ 14a:	01 97       	sbiw	r24, 0x01	; 1
+ 14c:	8c 6f       	ori	r24, 0xFC	; 252
+ 14e:	9f 6f       	ori	r25, 0xFF	; 255
+ 150:	01 96       	adiw	r24, 0x01	; 1
+ 152:	80 93 0a 01 	sts	0x010A, r24	; 0x80010a <__data_end>
 }
- 142:	ff 91       	pop	r31
- 144:	ef 91       	pop	r30
- 146:	9f 91       	pop	r25
- 148:	8f 91       	pop	r24
- 14a:	0f 90       	pop	r0
- 14c:	0f be       	out	0x3f, r0	; 63
- 14e:	0f 90       	pop	r0
- 150:	1f 90       	pop	r1
- 152:	18 95       	reti
+ 156:	ff 91       	pop	r31
+ 158:	ef 91       	pop	r30
+ 15a:	9f 91       	pop	r25
+ 15c:	8f 91       	pop	r24
+ 15e:	0f 90       	pop	r0
+ 160:	0f be       	out	0x3f, r0	; 63
+ 162:	0f 90       	pop	r0
+ 164:	1f 90       	pop	r1
+ 166:	18 95       	reti
 
-00000154 <timer1_init>:
+00000168 <timer1_init>:
 
 void timer1_init(void) {
 	TCCR1A = 0;
- 154:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+ 168:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
 	TCCR1B = (1 << WGM12) | (1 << CS11); // Modo CTC, prescaler 8
- 158:	8a e0       	ldi	r24, 0x0A	; 10
- 15a:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
+ 16c:	8a e0       	ldi	r24, 0x0A	; 10
+ 16e:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7f8081>
 	OCR1A = 9999; // 16MHz/(8 * 10000) = 200Hz (5ms ciclo completo)
- 15e:	8f e0       	ldi	r24, 0x0F	; 15
- 160:	97 e2       	ldi	r25, 0x27	; 39
- 162:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
- 166:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
+ 172:	8f e0       	ldi	r24, 0x0F	; 15
+ 174:	97 e2       	ldi	r25, 0x27	; 39
+ 176:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7f8089>
+ 17a:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7f8088>
 	TIMSK1 = (1 << OCIE1A);
- 16a:	82 e0       	ldi	r24, 0x02	; 2
- 16c:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <__TEXT_REGION_LENGTH__+0x7f806f>
- 170:	08 95       	ret
+ 17e:	82 e0       	ldi	r24, 0x02	; 2
+ 180:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <__TEXT_REGION_LENGTH__+0x7f806f>
+ 184:	08 95       	ret
 
-00000172 <main>:
+00000186 <main>:
 #include <avr/interrupt.h>
 #include "DISPLAY_7SEG_MUX/DISPLAY_7SEG_MUX.h"
 
 int main(void) {
 	// Inicializar display y timer
 	init_display_mux();
- 172:	0e 94 53 00 	call	0xa6	; 0xa6 <init_display_mux>
+ 186:	0e 94 53 00 	call	0xa6	; 0xa6 <init_display_mux>
 	timer1_init();
- 176:	0e 94 aa 00 	call	0x154	; 0x154 <timer1_init>
-	
-	update_display(1, 2, 3, 4);
- 17a:	24 e0       	ldi	r18, 0x04	; 4
- 17c:	43 e0       	ldi	r20, 0x03	; 3
- 17e:	62 e0       	ldi	r22, 0x02	; 2
- 180:	81 e0       	ldi	r24, 0x01	; 1
- 182:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
-	
+ 18a:	0e 94 b4 00 	call	0x168	; 0x168 <timer1_init>
+
 	sei();
- 186:	78 94       	sei
- 188:	ff cf       	rjmp	.-2      	; 0x188 <main+0x16>
+ 18e:	78 94       	sei
+	
+	update_display(0, 0, 0, 0);
+ 190:	20 e0       	ldi	r18, 0x00	; 0
+ 192:	40 e0       	ldi	r20, 0x00	; 0
+ 194:	60 e0       	ldi	r22, 0x00	; 0
+ 196:	80 e0       	ldi	r24, 0x00	; 0
+ 198:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 19c:	2f ef       	ldi	r18, 0xFF	; 255
+ 19e:	83 ed       	ldi	r24, 0xD3	; 211
+ 1a0:	90 e3       	ldi	r25, 0x30	; 48
+ 1a2:	21 50       	subi	r18, 0x01	; 1
+ 1a4:	80 40       	sbci	r24, 0x00	; 0
+ 1a6:	90 40       	sbci	r25, 0x00	; 0
+ 1a8:	e1 f7       	brne	.-8      	; 0x1a2 <main+0x1c>
+ 1aa:	00 c0       	rjmp	.+0      	; 0x1ac <main+0x26>
+ 1ac:	00 00       	nop
+	_delay_ms(1000);
+	
+	while(1) {
+			update_display(1, 1, 1, 1);
+ 1ae:	21 e0       	ldi	r18, 0x01	; 1
+ 1b0:	41 e0       	ldi	r20, 0x01	; 1
+ 1b2:	61 e0       	ldi	r22, 0x01	; 1
+ 1b4:	81 e0       	ldi	r24, 0x01	; 1
+ 1b6:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 1ba:	2f ef       	ldi	r18, 0xFF	; 255
+ 1bc:	83 ed       	ldi	r24, 0xD3	; 211
+ 1be:	90 e3       	ldi	r25, 0x30	; 48
+ 1c0:	21 50       	subi	r18, 0x01	; 1
+ 1c2:	80 40       	sbci	r24, 0x00	; 0
+ 1c4:	90 40       	sbci	r25, 0x00	; 0
+ 1c6:	e1 f7       	brne	.-8      	; 0x1c0 <main+0x3a>
+ 1c8:	00 c0       	rjmp	.+0      	; 0x1ca <main+0x44>
+ 1ca:	00 00       	nop
+			_delay_ms(1000);
+			update_display(2, 2, 2, 2);
+ 1cc:	22 e0       	ldi	r18, 0x02	; 2
+ 1ce:	42 e0       	ldi	r20, 0x02	; 2
+ 1d0:	62 e0       	ldi	r22, 0x02	; 2
+ 1d2:	82 e0       	ldi	r24, 0x02	; 2
+ 1d4:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 1d8:	2f ef       	ldi	r18, 0xFF	; 255
+ 1da:	83 ed       	ldi	r24, 0xD3	; 211
+ 1dc:	90 e3       	ldi	r25, 0x30	; 48
+ 1de:	21 50       	subi	r18, 0x01	; 1
+ 1e0:	80 40       	sbci	r24, 0x00	; 0
+ 1e2:	90 40       	sbci	r25, 0x00	; 0
+ 1e4:	e1 f7       	brne	.-8      	; 0x1de <main+0x58>
+ 1e6:	00 c0       	rjmp	.+0      	; 0x1e8 <main+0x62>
+ 1e8:	00 00       	nop
+			_delay_ms(1000);
+			update_display(3, 3, 3, 3);
+ 1ea:	23 e0       	ldi	r18, 0x03	; 3
+ 1ec:	43 e0       	ldi	r20, 0x03	; 3
+ 1ee:	63 e0       	ldi	r22, 0x03	; 3
+ 1f0:	83 e0       	ldi	r24, 0x03	; 3
+ 1f2:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 1f6:	2f ef       	ldi	r18, 0xFF	; 255
+ 1f8:	83 ed       	ldi	r24, 0xD3	; 211
+ 1fa:	90 e3       	ldi	r25, 0x30	; 48
+ 1fc:	21 50       	subi	r18, 0x01	; 1
+ 1fe:	80 40       	sbci	r24, 0x00	; 0
+ 200:	90 40       	sbci	r25, 0x00	; 0
+ 202:	e1 f7       	brne	.-8      	; 0x1fc <main+0x76>
+ 204:	00 c0       	rjmp	.+0      	; 0x206 <main+0x80>
+ 206:	00 00       	nop
+			_delay_ms(1000);
+			update_display(4, 4, 4, 4);
+ 208:	24 e0       	ldi	r18, 0x04	; 4
+ 20a:	44 e0       	ldi	r20, 0x04	; 4
+ 20c:	64 e0       	ldi	r22, 0x04	; 4
+ 20e:	84 e0       	ldi	r24, 0x04	; 4
+ 210:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 214:	2f ef       	ldi	r18, 0xFF	; 255
+ 216:	83 ed       	ldi	r24, 0xD3	; 211
+ 218:	90 e3       	ldi	r25, 0x30	; 48
+ 21a:	21 50       	subi	r18, 0x01	; 1
+ 21c:	80 40       	sbci	r24, 0x00	; 0
+ 21e:	90 40       	sbci	r25, 0x00	; 0
+ 220:	e1 f7       	brne	.-8      	; 0x21a <main+0x94>
+ 222:	00 c0       	rjmp	.+0      	; 0x224 <main+0x9e>
+ 224:	00 00       	nop
+			_delay_ms(1000);
+			update_display(5, 5, 5, 5);	
+ 226:	25 e0       	ldi	r18, 0x05	; 5
+ 228:	45 e0       	ldi	r20, 0x05	; 5
+ 22a:	65 e0       	ldi	r22, 0x05	; 5
+ 22c:	85 e0       	ldi	r24, 0x05	; 5
+ 22e:	0e 94 5c 00 	call	0xb8	; 0xb8 <update_display>
+ 232:	2f ef       	ldi	r18, 0xFF	; 255
+ 234:	83 ed       	ldi	r24, 0xD3	; 211
+ 236:	90 e3       	ldi	r25, 0x30	; 48
+ 238:	21 50       	subi	r18, 0x01	; 1
+ 23a:	80 40       	sbci	r24, 0x00	; 0
+ 23c:	90 40       	sbci	r25, 0x00	; 0
+ 23e:	e1 f7       	brne	.-8      	; 0x238 <main+0xb2>
+ 240:	00 c0       	rjmp	.+0      	; 0x242 <main+0xbc>
+ 242:	00 00       	nop
+ 244:	b4 cf       	rjmp	.-152    	; 0x1ae <main+0x28>
 
-0000018a <_exit>:
- 18a:	f8 94       	cli
+00000246 <_exit>:
+ 246:	f8 94       	cli
 
-0000018c <__stop_program>:
- 18c:	ff cf       	rjmp	.-2      	; 0x18c <__stop_program>
+00000248 <__stop_program>:
+ 248:	ff cf       	rjmp	.-2      	; 0x248 <__stop_program>

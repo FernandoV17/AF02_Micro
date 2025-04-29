@@ -25,7 +25,6 @@
 void buttons_init(void);
 uint8_t button1_pressed(void);
 uint8_t button2_pressed(void);
-uint8_t button3_pressed(void);
 void buttons_update(void);
 
 #endif // BUTTONS_H
